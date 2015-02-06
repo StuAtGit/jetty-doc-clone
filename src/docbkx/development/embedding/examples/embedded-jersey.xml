@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//  ========================================================================
+//  Copyright (c) 1995-2012 Mort Bay Consulting Pty. Ltd.
+//  ========================================================================
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+-->
+<section version="5.0" xml:id="embedded-jersey"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xl="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1998/Math/MathML"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook">
+  <title>Web Application</title>
+  <para>
+	  This example shows how to deploy a simple JAX-RS webapp with an embedded instance of jetty and the Jersey libraries. This is useful when you want to manage the lifecycle of a server programmatically, either within a production application or as a simple way to deploying and debugging a full scale application deployement. Also, it makes life much easier when want to use the JAX-RS for web applications, but deploy them in containers (e.g. docker) that favor one-process, stateless application environments.  In many ways it is easier then traditional deployment since you control the classpath yourself, making this easy to wire up in a test case in maven and issue requests using your favorite http client library (like our Jetty client found in <xref linkend="http-client"/>). And example of how to use this ability to easily wire a junit test to issue requests to your server (and easily debug them in your favorite IDE) is provided. It has one endpoint: /api/v1/status.
+  </para>
+  <example>
+    <title><link xl:href="@GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/JerseyStartApp.java">EmbeddedJerseyServer.java</link></title> 
+  <programlisting language="rjava-no-parse">
+    <filename>
+	  @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/resources/Status.java
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/JerseyApplication.java
+      @GITURL@/examples/embedded/src/main/java/org/eclipse/jetty/embedded/EmbeddedJerseyServer.java
+      @GITURL@/examples/embedded/src/test/java/org/eclipse/jetty/embedded/AppTest.java
+      @GITURL@/examples/embedded/src/test/java/org/eclipse/jetty/embedded/TestClient.java
+    </filename>
+  </programlisting>
+  </example>
+  <section>
+    <title>Run it!</title>
+    <para>
+      After you have started things up you should be able to navigate to http://localhost:8080/api/v1/status and you are good to go.
+    </para>
+  </section>
+  <section>
+    <title>Maven Coordinates</title>
+    <para>
+      To use this example in your project you will need the following maven dependencies declared.
+    </para>
+    <informalexample>
+      <programlisting language="xml">
+<![CDATA[
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-server</artifactId>
+		<version>${project.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-servlet</artifactId>
+		<version>${project.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet</artifactId>
+        <version>2.15</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.3.5</version>
+        <scope>test</scope>
+    </dependency>
+  ]]>
+      </programlisting>
+    </informalexample>
+  </section>
+</section>
